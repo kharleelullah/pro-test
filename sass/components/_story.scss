@@ -1,0 +1,87 @@
+.story{
+    width: 75%;
+    margin: 0 auto;
+    background-color: $color-grey-3;
+    box-shadow: 0 3rem 6rem rgba($color-black, .1);
+    border-radius: 3px;
+    font-size: $default-font-size;
+    padding: 6rem;
+    //* add padding left to have the image and text in their supposesd space--story padding + translate -3*//
+    padding-left: 9rem;
+
+    transform: skewX(-12deg);
+
+    @include respond(tab-port){
+        width: 100%;
+        padding: 4rem;
+        padding-left: 7rem;
+        
+    }
+
+    @include respond(phone){
+        transform: skewX(0);
+    }
+
+
+
+
+    &__image{
+        width: 15rem;
+        height: 15rem;
+        float: left;
+        background-color: red;
+        -webkit-shape-outside:circle(50% at 50% 50%);
+        shape-outside: circle(50% at 50% 50%); //* defines how the text float around the shape*//
+        -webkit-clip-path: circle(50% at 50% 50%);
+        clip-path: circle(50% at 50% 50%);//* makes the shape*//
+
+        //* a floated objects are not meant to be given margin..instead transform will be used to give space btw the shape and text*//
+        transform: translateX(-3rem) skewX(12deg);
+        position: relative;
+
+        @include respond (phone){
+            transform: translateX(-3rem) skewX(0);
+
+        }
+
+    }
+
+    &__img{
+        height: 100%;
+        transform: translateX(-4rem) scale(1.4);
+        transition: all .2s;
+
+    }
+
+    &__text{
+        transform: skewX(12deg);
+
+        @include respond(phone){
+            transform: skewX(0);
+        }
+    }
+
+    &__caption{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-20%);
+        font-size: 1.7rem;
+        text-transform: uppercase;
+        text-align: center;
+        color: $color-white;
+        transition: all .5s;
+        opacity: 0;
+        backface-visibility: hidden;
+    }
+
+    &:hover &__caption{
+        transform: translate(-50%,-50%);
+        opacity: 1;
+    }
+
+    &:hover &__img{
+        transform: translateX(-4rem) scale(1);
+        filter: blur(3px) brightness(80%);
+    }
+}

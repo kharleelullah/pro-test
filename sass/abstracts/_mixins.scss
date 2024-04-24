@@ -1,0 +1,48 @@
+@mixin clearfix{
+    &::after{
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin abscenter{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+/* @BREAKPOINT ARGUMENTS CHOICES:
+
+-phones
+-tablets-port
+-tablets-lands
+-big-desktop
+
+Note; in media queries, we use ems and rems because they are not affected by the root font size, 1em or 1rem equals to the font size coming from the browser.
+so we will finally use ems here because rems sometimes dosent work in some intended website
+
+
+ORDER: BASE > TYPOGRAPHY >GENERAL LAYOUT(header, footer, nav and others) > GRID > PAGE LAYOUT > COMPONENTS  
+*/
+
+
+
+@mixin respond($breakpoint){
+    @if $breakpoint == phone{
+        @media (max-width: 37.5em) {@content};//600px/16
+    }
+
+    @if $breakpoint == tab-port{
+        @media (max-width: 56.25em) {@content};//*900px/16
+    }
+
+    @if $breakpoint == tab-lands{
+        @media (max-width: 75em) {@content};//*1200px/16
+    }
+
+    @if $breakpoint == big-desktop{
+        @media (min-width: 112.5em) {@content};//*1800/16
+    }
+}

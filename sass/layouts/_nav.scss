@@ -1,0 +1,169 @@
+.navigation{
+
+
+    &__checkbox{
+        display: none;
+
+    }
+
+    &__button{
+        height: 7rem;
+        width: 7rem;
+        background-color: $color-white;
+        border-radius: 50%;
+        position: fixed;
+        top: 5rem;
+        right: 6rem;
+        z-index: 2000;
+        box-shadow: 0 1rem 3rem rgba($color-black, .2);
+        text-align: center;
+        cursor: pointer;
+
+        @include respond(tab-port){
+            top: 3rem;
+            right: 4rem;
+        }
+    }
+
+    &__background{
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+        /*position fixed means  no matter how you scroll ur website, the position of the remains fixed*/
+        position: fixed;
+        top: 5rem;
+        right: 6.5rem;
+        background-image: radial-gradient($color-primary,$color-primary-dark);/*radial gradient starts from the middle of an element rather than linear gradients that starts from a side to other side */
+        z-index: 1000;
+        /*to have the background covering the whole view port for you to have a visual view of the nav, then afterall i star the code
+        transform: scale(80); */
+
+        transition: transform .8s cubic-bezier(0.86, 0, 0.07, 1);
+    
+        @include respond(tab-port){
+            top: 3rem;
+            right: 4.5rem;
+        }
+    
+    }
+
+    &__nav{
+        height: 100vh;
+         /* width 100% applied at the pre-developing stage but needs to be star as it's no more needed
+        width: 100%;*/
+        position: fixed;
+        top:0;
+        right: 0;
+        z-index: 1500;
+
+        /*to make the nav invisible while scrolling the page of the website and when the menu button has been cancelled*/
+        opacity: 0;/* opacity is applied just to make the nav link invisible but the mouse will still indicate their presence, so width:0; applied to have it gone totally until the menu nav is opened*/
+        width: 0;
+
+        transition: all .7s;
+    }
+
+    &__list{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        list-style: none;
+        text-align: center;
+        width: 100%;
+    }
+
+    &__item{
+        margin: 1rem;
+    }
+
+    &__link{
+        &:link,
+        &:visited{
+            /*to apply padding/margin to a link blocked element, you have to display it as an inline block*/
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 2rem;
+            font-weight: 300;
+            color: $color-white;
+            text-decoration: none;
+            background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
+            padding: 1rem 2rem;
+
+            /*background size of the background image*/
+            background-size: 230%; 
+            transition: all .4s;
+
+            span{
+                margin-right: 1.5rem;
+                display: inline-block;
+            }
+        }
+
+        &:hover,
+        &:active{
+            background-position: 100%;
+            color: $color-primary;
+        }
+
+    }
+
+
+      /*now to have the menu-nav opened once it clicked....to animate these below checked styles, then we need to apply transistion to background and nav*/
+
+    &__checkbox:checked ~ &__background{
+        transform: scale(80);
+    }
+
+    &__checkbox:checked ~ &__nav{
+       opacity: 1;
+       width: 100%;
+    }
+
+    /*FOR THE MENU ICONS*/
+    &__icon{
+        position: relative;
+        margin-top: 3.5rem;
+        &,/*FOR THE SPAN ICON ITSELF*/
+        &::before,
+        &::after{
+            height: 2px;
+            width: 3rem;
+            background-color: $color-grey-dark-4;
+            display: inline-block;
+        }
+
+        &::before,
+        &::after{
+            content: "";
+            position: absolute;
+            left: 0;
+        }
+
+        &::before{
+            top: -.8rem;
+        }
+
+        &::after{
+           bottom: -.8rem;
+        }
+    }
+
+
+    /* the word checked is used to have the span element(the one in the middle with the pseudo class; after and before) dissapear as soon as the menu is clicked*/
+    &__checkbox:checked + &__button &__icon{
+        background-color: transparent;
+    }
+
+    
+    /*For the rotation of before and after pseudo class*/
+    &__checkbox:checked + &__button &__icon::before{
+        top: 0;
+        transform: rotate(135deg);
+    }
+
+    &__checkbox:checked + &__button &__icon::after{
+        top: 0;
+        transform: rotate(-135deg);
+    }
+}
